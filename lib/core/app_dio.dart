@@ -28,6 +28,7 @@ class AppDio {
       responseBody: true,
       responseHeader: true,
     ));
+    _dio.interceptors.add(MyInterceptor()); // adds custom interceptor
   }
 
   /// Returns the Dio HTTP client instance.
@@ -41,6 +42,10 @@ class AppDio {
   final Dio _dio = Dio();
 }
 
-// TODO!: write an interceptor
-
-
+class MyInterceptor extends Interceptor {
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    // here we can capture the requests and process them.
+    handler.next(options);
+  }
+}

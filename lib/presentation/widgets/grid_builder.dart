@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_tech_test/domain/entities/entities.dart';
-import 'package:movies_tech_test/presentation/widgets/book_card.dart';
-import 'package:movies_tech_test/presentation/widgets/book_card_squeleton.dart';
+import 'package:movies_tech_test/presentation/widgets/widgets.dart';
+// import 'package:redacted/redacted.dart';
 
 class GridBuilder extends StatelessWidget {
   const GridBuilder({
