@@ -32,5 +32,6 @@ final class BooksFetchedState extends HomeState {
 }
 
 final class SearchResultsState extends HomeState {
-  const SearchResultsState({required super.bookList});
+  final List<BookEntity> results;
+  const SearchResultsState({required super.bookList, required this.results});
 }

@@ -14,11 +14,9 @@ class BookRepositoryImpl implements BookRepository {
     const endpoint = "/books";
     try {
       final response = await _appDio.instance.get(endpoint);
-      final bookList = List.from(response.data["books"])
-          .map((e) {
-            return BookModel.fromJson(e);
-          })
-          .toList();
+      final bookList = List.from(response.data["books"]).map((e) {
+        return BookModel.fromJson(e);
+      }).toList();
       return Right(bookList);
     } catch (e) {
       return Left(Fail("Failed to get books"));
@@ -26,15 +24,14 @@ class BookRepositoryImpl implements BookRepository {
   }
 
   @override
-  Future<Either<Fail, List<BookEntity>>> searchBooks() async {
-    const endpoint = "/books";
+  Future<Either<Fail, List<BookEntity>>> searchBooks(String query) async {
+    const endpoint = "/search";
     try {
-      final response = await _appDio.instance.get(endpoint);
-      final bookList = List.from(response.data["books"])
-          .map((e) {
-            return BookModel.fromJson(e);
-          })
-          .toList();
+      // Not getting a valid response
+      final response = await _appDio.instance.post(endpoint);
+      final bookList = List.from(response.data["books"]).map((e) {
+        return BookModel.fromJson(e);
+      }).toList();
       return Right(bookList);
     } catch (e) {
       return Left(Fail("Failed to get books"));

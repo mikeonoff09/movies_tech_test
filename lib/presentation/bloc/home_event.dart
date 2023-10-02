@@ -8,13 +8,6 @@ sealed class HomeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-// class InitialEvent extends HomeEvent {
-//   const InitialEvent();
-
-//   @override
-//   List<Object> get props => [];
-// }
-
 class GetBooksEvent extends HomeEvent {
   const GetBooksEvent();
 
@@ -22,11 +15,15 @@ class GetBooksEvent extends HomeEvent {
   List<Object> get props => [];
 }
 
-class SearchBooks extends HomeEvent {
-  const SearchBooks({required this.query});
+class SearchBooksEvent extends HomeEvent {
+  const SearchBooksEvent({
+    required this.query,
+    required this.bookList,
+  });
 
   final String query;
+  final List<BookEntity> bookList;
 
   @override
-  List<Object> get props => [query];
+  List<Object> get props => [query, bookList];
 }

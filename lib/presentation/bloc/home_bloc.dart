@@ -10,11 +10,12 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
+  BookRepositoryImpl booksRepository;
+
   HomeBloc({required this.booksRepository}) : super(HomeInitialState()) {
     on<GetBooksEvent>(_onGetBooksEvent);
+    on<SearchBooksEvent>(_onSearchBooksEvent);
   }
-
-  BookRepositoryImpl booksRepository;
 
   FutureOr<void> _onGetBooksEvent(event, emit) async {
     emit(FetchingBooksState());
@@ -24,5 +25,23 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }, (r) {
       emit(BooksFetchedState(bookList: r));
     });
+  }
+
+  FutureOr<void> _onSearchBooksEvent(event, emit) async {
+    emit(SearchingBooksState());
+
+    // Filter the books based on the search query
+    final filteredBooks = event.bookList.where((book) {
+      final title = book.title.toLowerCase();
+      final authors =
+          book.authors.map((author) => author.toLowerCase()).join(' ');
+      return title.contains(event.query.toLowerCase()) ||
+          authors.contains(event.query.toLowerCase());
+    }).toList();
+
+    emit(SearchResultsState(
+      bookList: event.bookList,
+      results: filteredBooks,
+    ));
   }
 }

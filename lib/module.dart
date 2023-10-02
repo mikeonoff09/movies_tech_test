@@ -4,6 +4,7 @@ import 'package:movies_tech_test/core/app_dio.dart';
 import 'package:movies_tech_test/infrastructure/repositories_impl/book_repository_impl.dart';
 import 'package:movies_tech_test/presentation/bloc/home_bloc.dart';
 import 'package:movies_tech_test/presentation/screens/home_screen.dart';
+import 'package:movies_tech_test/presentation/screens/search_screen.dart';
 
 class AppModule extends Module {
   @override
@@ -21,6 +22,7 @@ class AppModule extends Module {
   @override
   void routes(r) {
     r.child('/', child: (context) => const HomeScreen());
+    r.child('/search', child: (context) => const SearchScreen());
     r.module('/details', module: DetailsModule());
   }
 }
