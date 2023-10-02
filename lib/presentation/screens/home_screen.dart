@@ -33,6 +33,7 @@ class _Body extends StatelessWidget {
             BlocBuilder<HomeBloc, HomeState>(
               builder: (context, state) {
                 return IconButton(
+                  key: const Key("search_books"),
                   onPressed: () {
                     Modular.to.pushNamed("/search");
                   },

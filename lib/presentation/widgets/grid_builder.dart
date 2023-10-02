@@ -22,7 +22,10 @@ class GridBuilder extends StatelessWidget {
       itemBuilder: (context, index) {
         return bookList.isEmpty
             ? const BookCardSkeleton()
-            : BookCard(book: bookList[index]);
+            : BookCard(
+                book: bookList[index],
+                key1: Key("home_book_$index"),
+              );
       },
     );
   }

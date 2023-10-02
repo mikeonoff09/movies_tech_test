@@ -73,7 +73,7 @@ class BookModel extends BookEntity with EquatableMixin {
         categories: json["categories"] != null
             ? List<String>.from(json["categories"].map((x) => x))
             : [],
-        // averageRating: double.tryParse(json["averageRating"]) ?? 0.0,
+        // averageRating: json["averageRating"] ?? 0.0,
         // ratingsCount:
         //     json["ratingsCount"] != null ? int.parse(json["ratingsCount"]) : 0,
         maturityRating: json["maturityRating"] ?? '',

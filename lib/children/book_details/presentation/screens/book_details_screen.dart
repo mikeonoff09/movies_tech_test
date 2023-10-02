@@ -1,145 +1,123 @@
 import 'package:flutter/material.dart';
 import 'package:movies_tech_test/domain/entities/book_entity.dart';
+import 'package:movies_tech_test/presentation/widgets/start_reading.dart';
 
 class BookDetailsScreen extends StatelessWidget {
   final BookEntity book;
 
   const BookDetailsScreen({super.key, required this.book});
-
   @override
   Widget build(BuildContext context) {
+    Color darkGreen = const Color(0xff007084);
+    Color greyColor = const Color(0xffBDC3C7);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Book Details'),
+        title: Text(book.title),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Image.network(
-                  book.imageLinks.thumbnail,
-                  width: 200,
-                  height: 300,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                book.title,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              if (book.subtitle != null)
-                Text(
-                  book.subtitle!,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.grey,
-                  ),
-                ),
-              const SizedBox(height: 16),
-              const Text(
-                'Authors:',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                book.authors.join(", "),
-                style: const TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Publisher:',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                book.publisher ?? "N/A",
-                style: const TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Published Date:',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                book.publishedDate,
-                style: const TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'Description:',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                book.description,
-                style: const TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'Print Type:',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                book.printType,
-                style: const TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 8),
-              if (book.categories != null)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Categories:',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+        child: Column(
+          children: <Widget>[
+            Image.network(
+              book.imageLinks.thumbnail,
+              height: (((MediaQuery.of(context).size.width / 2) - 32) * 2) - 80,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: Text(
+                          book.title,
+                          style: const TextStyle(
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 21,
+                          ),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
+                      const Spacer(),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          StarRating(
+                            rating: 4,
+                          ),
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          Text(
+                            "Rating",
+                            style: TextStyle(color: darkGreen, fontSize: 14),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    book.description,
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 18,
+                      letterSpacing: 0.6,
+                      wordSpacing: 0.6,
                     ),
-                    Wrap(
-                      spacing: 8.0,
-                      children: book.categories!
-                          .map((category) => Chip(
-                                label: Text(category),
-                              ))
-                          .toList(),
-                    ),
-                  ],
-                ),
-              const SizedBox(height: 16),
-              const Text(
-                'Maturity Rating:',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                  ),
+                  const SizedBox(
+                    height: 80,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          decoration: BoxDecoration(
+                              color: darkGreen,
+                              borderRadius: BorderRadius.circular(12)),
+                          child: const Text(
+                            "Read Book",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          decoration: BoxDecoration(
+                              border: Border.all(color: greyColor, width: 2),
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Text(
+                            "More info",
+                            style: TextStyle(
+                                color: greyColor,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+                ],
               ),
-              Text(
-                book.maturityRating,
-                style: const TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 8),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
