@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class StarRating extends StatelessWidget {
   final double rating;
-  StarRating({this.rating = 4});
+  const StarRating({super.key, this.rating = 4});
 
   @override
   Widget build(BuildContext context) {
@@ -10,27 +10,32 @@ class StarRating extends StatelessWidget {
       children: <Widget>[
         Icon(
           Icons.star,
-          color: rating >= 1 ? Color(0xffFFCE00) : Color(0xffBDC3C7),
+          color:
+              rating >= 1 ? const Color(0xffFFCE00) : const Color(0xffBDC3C7),
           size: 18,
         ),
         Icon(
           Icons.star,
-          color: rating >= 2 ? Color(0xffFFCE00) : Color(0xffBDC3C7),
+          color:
+              rating >= 2 ? const Color(0xffFFCE00) : const Color(0xffBDC3C7),
           size: 18,
         ),
         Icon(
           Icons.star,
-          color: rating >= 3 ? Color(0xffFFCE00) : Color(0xffBDC3C7),
+          color:
+              rating >= 3 ? const Color(0xffFFCE00) : const Color(0xffBDC3C7),
           size: 18,
         ),
         Icon(
           Icons.star,
-          color: rating >= 4 ? Color(0xffFFCE00) : Color(0xffBDC3C7),
+          color:
+              rating >= 4 ? const Color(0xffFFCE00) : const Color(0xffBDC3C7),
           size: 18,
         ),
         Icon(
           Icons.star,
-          color: rating == 5 ? Color(0xffFFCE00) : Color(0xffBDC3C7),
+          color:
+              rating == 5 ? const Color(0xffFFCE00) : const Color(0xffBDC3C7),
           size: 18,
         )
       ],
