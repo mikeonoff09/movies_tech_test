@@ -12,7 +12,7 @@ class BookCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: (MediaQuery.of(context).size.width / 2) - 32,
-      height: ((MediaQuery.of(context).size.width / 2) - 32) * 2,
+      height: ((MediaQuery.of(context).size.width / 2) - 32) * 2 - 20,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: InkWell(
@@ -42,33 +42,38 @@ class BookCard extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(2.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
                     book.title,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 book.subtitle != null
                     ? Padding(
-                        padding: const EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
                           book.subtitle ?? '',
                           style: const TextStyle(
                             fontSize: 12,
                           ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       )
                     : const SizedBox(height: 1),
                 Padding(
-                  padding: const EdgeInsets.all(2.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
                     'Author(s): ${book.authors.join(', ')}',
                     style: const TextStyle(
                       fontSize: 14,
                     ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],

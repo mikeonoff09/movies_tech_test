@@ -10,6 +10,7 @@ class CardSwiper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return SizedBox(
       height: 250,
       child: Swiper(
@@ -17,6 +18,12 @@ class CardSwiper extends StatelessWidget {
         autoplay: true,
         viewportFraction: 0.4,
         itemCount: books.length,
+        pagination: SwiperPagination(
+            margin: const EdgeInsets.only(top: 0),
+            builder: DotSwiperPaginationBuilder(
+              activeColor: colors.primary,
+              color: colors.secondary,
+            )),
         itemBuilder: (context, index) => _Slider(
           book: books[index],
         ),
