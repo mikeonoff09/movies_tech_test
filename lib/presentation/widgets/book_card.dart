@@ -29,11 +29,16 @@ class BookCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    book.imageLinks.thumbnail,
-                    height: (((MediaQuery.of(context).size.width / 2) - 32) * 2) -80,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                  child: Hero(
+                    tag: "img${book.id}",
+                    child: Image.network(
+                      book.imageLinks.thumbnail,
+                      height:
+                          (((MediaQuery.of(context).size.width / 2) - 32) * 2) -
+                              80,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Padding(

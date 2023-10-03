@@ -17,11 +17,15 @@ class BookDetailsScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Image.network(
-              book.imageLinks.thumbnail,
-              height: (((MediaQuery.of(context).size.width / 2) - 32) * 2) - 80,
-              width: double.infinity,
-              fit: BoxFit.cover,
+            Hero(
+              tag: "img${book.id}",
+              child: Image.network(
+                book.imageLinks.thumbnail,
+                height:
+                    (((MediaQuery.of(context).size.width / 2) - 32) * 2) - 80,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),

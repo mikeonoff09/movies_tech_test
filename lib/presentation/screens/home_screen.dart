@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:movies_tech_test/presentation/bloc/home_bloc.dart';
 import 'package:movies_tech_test/presentation/screens/listeners/home_bloc_listener.dart';
+import 'package:movies_tech_test/presentation/widgets/shared/custom_app_bar.dart';
 import 'package:movies_tech_test/presentation/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -26,47 +27,91 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return const SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            BlocBuilder<HomeBloc, HomeState>(
-              builder: (context, state) {
-                return IconButton(
-                  key: const Key("search_books"),
-                  onPressed: () {
-                    Modular.to.pushNamed("/search");
-                  },
-                  icon: const Icon(Icons.search),
-                );
-              },
-            )
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomAppbar(),
+              CardSwiperBuilder(),
+              _Title(),
+              BooksCatalogBuilder(),
+            ],
+          ),
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: BlocBuilder<HomeBloc, HomeState>(
-                builder: (context, state) {
-                  if (state is SearchingBooksState ||
-                      state is HomeInitialState) {
-                    return const GridBuilder(bookList: []);
-                  } else if (state is ErrorFetchingBooksState) {
-                    return const Center(
-                      child: Text("Error Fetching Books"),
-                    );
-                  } else if (state is ErrorSearchingBooksState) {
-                    return const Center(
-                      child: Text("Error Searching Books"),
-                    );
-                  } else {
-                    return GridBuilder(bookList: state.bookList);
-                  }
-                },
-              ),
-            ),
-          ],
-        ),
+      ),
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  const _Title();
+
+  @override
+  Widget build(BuildContext context) {
+    final titleLargeStyle = Theme.of(context).textTheme.titleLarge;
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Text("Catalog", style: titleLargeStyle),
+    );
+  }
+}
+
+class BooksCatalogBuilder extends StatelessWidget {
+  const BooksCatalogBuilder({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state is SearchingBooksState || state is HomeInitialState) {
+          return const GridBuilder(bookList: []);
+        } else if (state is ErrorFetchingBooksState) {
+          return const Center(
+            child: Text("Error Fetching Books"),
+          );
+        } else if (state is ErrorSearchingBooksState) {
+          return const Center(
+            child: Text("Error Searching Books"),
+          );
+        } else {
+          return GridBuilder(bookList: state.bookList);
+        }
+      },
+    );
+  }
+}
+
+class CardSwiperBuilder extends StatelessWidget {
+  const CardSwiperBuilder({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 250,
+      child: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          if (state is SearchingBooksState || state is HomeInitialState) {
+            return const GridBuilder(bookList: []);
+          } else if (state is ErrorFetchingBooksState) {
+            return const Center(
+              child: Text("Error Fetching Books"),
+            );
+          } else if (state is ErrorSearchingBooksState) {
+            return const Center(
+              child: Text("Error Searching Books"),
+            );
+          } else {
+            return CardSwiper(books: state.bookList);
+          }
+        },
       ),
     );
   }

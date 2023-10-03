@@ -28,7 +28,7 @@ class AppDio {
       responseBody: true,
       responseHeader: true,
     ));
-    _dio.interceptors.add(MyInterceptor()); // adds custom interceptor
+    // _dio.interceptors.add(MyInterceptor()); // adds custom interceptor
   }
 
   /// Returns the Dio HTTP client instance.
